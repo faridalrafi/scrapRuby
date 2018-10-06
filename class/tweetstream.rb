@@ -1,6 +1,7 @@
 #require 'tweetstream'
 require 'twitter'
-
+require 'uri'
+require_relative 'scraping'
 def run_stream
 client = Twitter::Streaming::Client.new do |config|
   config.consumer_key        = "QMbo2SJEE9zfoEa8AITDdCVyW"
@@ -16,8 +17,10 @@ client.filter(track: topics.join(",")) do |object|
   if tweet_post[0,3] != "RT "
   	puts tweet_post
 	tweet_url = URI.extract(tweet_post)
+	data = Scraping.new(tweet_url)
+	puts " title berita : #{data.title} , isi berita : #{data.description} , URL gambar : #{data.image_url}"
 end
 end
 end
 
-#run_stream
+run_stream

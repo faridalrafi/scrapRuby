@@ -32,8 +32,3 @@ class Scraping
     
 end
 
-data = Scraping.new("https://t.co/ax4dN5oQd1")
-#puts data.title
-#puts data.description
-#puts data.image_url
-puts " title berita : #{data.title} , isi berita : #{data.description} , URL gambar : #{data.image_url}"
