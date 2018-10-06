@@ -15,10 +15,20 @@ client.filter(track: topics.join(",")) do |object|
   tweet_user = object.user.id
   tweet_post = object.text if object.is_a?(Twitter::Tweet)
   if tweet_post[0,3] != "RT "
-  	puts tweet_post
+  	
 	tweet_url = URI.extract(tweet_post)
-	data = Scraping.new(tweet_url)
-	puts " title berita : #{data.title} , isi berita : #{data.description} , URL gambar : #{data.image_url}"
+	begin
+		str_url = tweet_url[0]
+		if str_url[0,4] == "http"
+		data = Scraping.new(str_url)
+		puts " title berita : #{data.title} , isi berita : #{data.description} , URL gambar : #{data.image_url}"		
+		else
+		puts tweet_post 
+		end
+		raise 'Error occured in Tweet URL'
+		rescue
+		puts tweet_post
+		end
 end
 end
 end
